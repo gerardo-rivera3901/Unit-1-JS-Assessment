@@ -29,8 +29,7 @@ function getName(character) {
  * Sample data expected output: 5
  */
 function getFilmCount(character) {
-  // TODO: Add your code inside the functions (others below).
-
+  return character.films.length
 }
 
 /**
@@ -42,7 +41,10 @@ function getFilmCount(character) {
  * If length is 0. Return 'none'
 */
 function getSecondStarshipName(character) {
-  // TODO: Add your code here.
+  if(character.starships.length === 0){
+    return 'none'
+  }
+  return character.starships[1].name
 }
 
 /**
@@ -55,7 +57,7 @@ function getSecondStarshipName(character) {
  *    Result: `Luke Skywalker, 172cm, 77kg. Featured in 5 films.`
  */
 function getSummary(character) {
-  // TODO: Add your code here.
+  return `${character.name}, ${character.height}cm, ${character.mass}kg. Featured in ${character.films.length} films.`
 }
 
 /**
@@ -67,7 +69,7 @@ function getSummary(character) {
  * Sample data expected output: 8000
 */
 function getVehiclesCostInCreditsSumTotal(character) {
-  // TODO: Add your code here.
+  return character.vehicles.reduce((acc, adder) => acc += adder.cost_in_credits, 0)
 }
 
 /**
@@ -81,7 +83,9 @@ function getVehiclesCostInCreditsSumTotal(character) {
  * Sample data expected output: 27
 */
 function getStarshipPassengerAndCrewSumTotal(character) {
-  // TODO: Add your code here.
+  let crew = character.starships.reduce((acc, adder) => acc += adder.crew, 0)
+  let passengers = character.starships.reduce((acc, adder) => acc += adder.passengers, 0)
+  return crew + passengers
 }
 
 /**
@@ -98,7 +102,15 @@ function getStarshipPassengerAndCrewSumTotal(character) {
  * Given film #7, expected error: `There are only 3 Star Wars movies. Flan fiction excluded.`
 */
 function getNthFilm(character, filmNumber) {
-  // TODO: Add your code here.
+  if(filmNumber === 1) {
+    return character.films[0]
+  } else if(filmNumber === 2) {
+    return character.films[1]
+  } else if(filmNumber === 3) {
+    return character.films[2]
+  } else if(filmNumber < 3) {
+    return "There are only 3 Star Wars movies. Flan fiction excluded."
+  }
 }
 
 /**
@@ -112,7 +124,11 @@ function getNthFilm(character, filmNumber) {
  * Sample data expected output: 80124
 */
 function getCargoCapacityTotal(character) {
-  // TODO: Add your code here.
+  let vehicles = character.vehicles.map(item => item.cargo_capacity)
+  let starships = character.starships.map(item => item.cargo_capacity)
+  let newSum1 = vehicles.reduce((acc, adder) => acc += adder)
+  let newSum2 = starships.reduce((acc, adder) => acc += adder)
+  return newSum1 + newSum2
 }
 
 /**
@@ -127,7 +143,8 @@ function getCargoCapacityTotal(character) {
  * Sample data expected output: `X-wing`
 */
 function getFastestStarshipName(character) {
-  // TODO: Add your code here.
+  let fastStarships = character.starships.map(item => item.max_atmosphering_speed)
+  return Math.max(...fastStarships)
 }
 
 /**
